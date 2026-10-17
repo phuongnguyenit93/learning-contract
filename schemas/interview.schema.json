@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Interview Questions",
+  "description": "Interview question.yml, validated after YAML parsing.",
+  "type": "object",
+  "required": ["questions"],
+  "properties": {
+    "questions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["question", "answer", "aiGenerated", "reviewed", "readmeRelated", "apiRelated"],
+        "properties": {
+          "question": { "type": "string" },
+          "answer": { "type": "string" },
+          "aiGenerated": { "type": "boolean" },
+          "reviewed": { "type": "boolean" },
+          "readmeRelated": { "$ref": "./common.schema.json#/$defs/readmeRelation" },
+          "apiRelated": { "$ref": "./common.schema.json#/$defs/apiRelation" }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

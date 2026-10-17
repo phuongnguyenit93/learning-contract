@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Learning Contracts shared definitions",
+  "description": "Reusable wire-format definitions. Language identifies the content locale, not the programming language/dataset.",
+  "$defs": {
+    "language": { "type": "string", "pattern": "^[a-z]{2,3}(?:-[A-Za-z0-9]+)*$" },
+    "routeId": { "type": "string", "minLength": 1 },
+    "nonnegativeInteger": { "type": "integer", "minimum": 0 },
+    "difficulty": { "type": "string", "enum": ["BASIC", "INTERMEDIATE", "ADVANCED"] },
+    "localizedAssetPaths": {
+      "type": "object",
+      "propertyNames": { "$ref": "#/$defs/language" },
+      "additionalProperties": { "type": "string", "minLength": 1 }
+    },
+    "readmeRelation": {
+      "type": "object",
+      "required": ["file", "anchor"],
+      "properties": {
+        "file": { "type": "string" },
+        "anchor": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "apiRelation": {
+      "type": "object",
+      "required": ["controller", "methodSignature"],
+      "properties": {
+        "controller": { "type": "string" },
+        "methodSignature": { "type": "string" }
+      },
+      "additionalProperties": true
+    }
+  }
+}

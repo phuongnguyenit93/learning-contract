@@ -1,0 +1,20 @@
+{
+  "contractVersion": "1.0.0",
+  "lifecycle": "DRAFT",
+  "schemaDialect": "https://json-schema.org/draft/2020-12/schema",
+  "owner": "learning-platform",
+  "documents": {
+    "manifest": "schemas/manifest.schema.json",
+    "moduleCatalog": "schemas/module-catalog.schema.json",
+    "knowledge": "schemas/knowledge.schema.json",
+    "knowledgeSearch": "schemas/knowledge-search.schema.json",
+    "roadmap": "schemas/roadmap.schema.json",
+    "videoIndex": "schemas/video-index.schema.json",
+    "videoScript": "schemas/video-script.schema.json",
+    "quiz": "schemas/quiz.schema.json",
+    "interview": "schemas/interview.schema.json",
+    "reference": "schemas/reference.schema.json",
+    "apiDocs": "schemas/api-docs.schema.json"
+  },
+  "policy": "policy/compatibility.json"
+}

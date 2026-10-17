@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Knowledge Index",
+  "description": "module/{moduleId}/knowledge/{language}/index.json. Section.content is a URL to Markdown, not the Markdown body.",
+  "type": "object",
+  "required": ["version", "moduleId", "language", "categoryCount", "sectionCount", "tree"],
+  "properties": {
+    "version": { "const": 1 },
+    "moduleId": { "$ref": "./common.schema.json#/$defs/routeId" },
+    "language": { "$ref": "./common.schema.json#/$defs/language" },
+    "categoryCount": { "$ref": "./common.schema.json#/$defs/nonnegativeInteger" },
+    "sectionCount": { "$ref": "./common.schema.json#/$defs/nonnegativeInteger" },
+    "tree": { "type": "array", "items": { "$ref": "#/$defs/node" } }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "node": { "oneOf": [ { "$ref": "#/$defs/folder" }, { "$ref": "#/$defs/category" } ] },
+    "folder": {
+      "type": "object",
+      "required": ["kind", "id", "title", "children"],
+      "properties": {
+        "kind": { "const": "FOLDER" },
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "children": { "type": "array", "items": { "$ref": "#/$defs/node" } }
+      },
+      "additionalProperties": true
+    },
+    "category": {
+      "type": "object",
+      "required": ["kind", "id", "title", "sourcePath", "sections"],
+      "properties": {
+        "kind": { "const": "CATEGORY" },
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "sourcePath": { "type": "string" },
+        "intro": { "type": "string" },
+        "sections": { "type": "array", "items": { "$ref": "#/$defs/section" } }
+      },
+      "additionalProperties": true
+    },
+    "section": {
+      "type": "object",
+      "required": ["id", "title", "content", "difficulty", "aiGenerated", "reviewed"],
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "difficulty": { "$ref": "./common.schema.json#/$defs/difficulty" },
+        "aiGenerated": { "type": "boolean" },
+        "reviewed": { "type": "boolean" }
+      },
+      "additionalProperties": true
+    }
+  }
+}

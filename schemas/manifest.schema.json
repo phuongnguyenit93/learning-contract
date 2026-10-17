@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Learning Dataset Archive Manifest",
+  "description": "Manifest inside the producer ZIP, not a browser-facing document. Current Java archive uses schemaVersion 1; contractVersion may be added later without changing the existing fields.",
+  "type": "object",
+  "required": ["schemaVersion", "producer", "sourceCommit", "sourceCommitTime", "fileCount", "moduleCount", "referenceCount", "totalBytes", "catalogSha256"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "contractVersion": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "producer": { "type": "string", "minLength": 1 },
+    "sourceCommit": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "sourceCommitTime": { "type": "string" },
+    "fileCount": { "$ref": "./common.schema.json#/$defs/nonnegativeInteger" },
+    "moduleCount": { "$ref": "./common.schema.json#/$defs/nonnegativeInteger" },
+    "referenceCount": { "$ref": "./common.schema.json#/$defs/nonnegativeInteger" },
+    "totalBytes": { "$ref": "./common.schema.json#/$defs/nonnegativeInteger" },
+    "catalogSha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+  },
+  "additionalProperties": true
+}

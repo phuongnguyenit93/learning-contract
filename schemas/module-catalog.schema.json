@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Published Module Catalog",
+  "description": "Producer-owned module-catalog.json. Not the platform-derived module-navigation.json or module-details files.",
+  "type": "object",
+  "required": ["version", "root"],
+  "properties": {
+    "version": { "const": 1 },
+    "root": { "$ref": "#/$defs/node" }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "node": {
+      "type": "object",
+      "required": ["id", "name", "kind", "children"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "path": { "type": "string" },
+        "kind": { "enum": ["GROUP", "MODULE"] },
+        "routeId": { "$ref": "./common.schema.json#/$defs/routeId" },
+        "sourceFingerprint": { "type": "string" },
+        "serviceName": { "type": "string" },
+        "moduleType": { "type": "string" },
+        "description": { "type": "string" },
+        "moduleDepend": { "type": "boolean" },
+        "javaBasePackage": { "type": "string", "description": "Optional Java-specific extension; not required for other producers." },
+        "overview": { "$ref": "./common.schema.json#/$defs/localizedAssetPaths" },
+        "knowledge": { "$ref": "./common.schema.json#/$defs/localizedAssetPaths" },
+        "roadmap": { "$ref": "./common.schema.json#/$defs/localizedAssetPaths" },
+        "video": { "$ref": "./common.schema.json#/$defs/localizedAssetPaths" },
+        "quiz": { "$ref": "./common.schema.json#/$defs/localizedAssetPaths" },
+        "interview": { "$ref": "./common.schema.json#/$defs/localizedAssetPaths" },
+        "api": { "$ref": "./common.schema.json#/$defs/localizedAssetPaths" },
+        "reference": { "type": "string" },
+        "children": { "type": "array", "items": { "$ref": "#/$defs/node" } }
+      },
+      "if": { "properties": { "kind": { "const": "MODULE" } }, "required": ["kind"] },
+      "then": { "required": ["routeId"] },
+      "additionalProperties": true
+    }
+  }
+}

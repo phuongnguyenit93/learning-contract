@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Learning Roadmap",
+  "description": "Roadmap YAML (roadmap.yml), parsed into JSON-compatible objects for validation.",
+  "type": "object",
+  "required": ["roadmap"],
+  "properties": {
+    "roadmap": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "purpose"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "title": { "type": "string" },
+          "purpose": { "type": "string" },
+          "dependsOn": { "type": "array", "items": { "type": "string" } },
+          "objectives": { "type": "array", "items": { "type": "string" } },
+          "relatedKnowledge": { "type": "array", "items": { "type": "string" } },
+          "relatedModules": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["routeId"],
+              "properties": {
+                "routeId": { "$ref": "./common.schema.json#/$defs/routeId" },
+                "label": { "type": "string" },
+                "note": { "type": "string" }
+              },
+              "additionalProperties": true
+            }
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

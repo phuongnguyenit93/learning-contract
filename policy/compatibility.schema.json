@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Learning Contract Compatibility Policy",
+  "type": "object",
+  "required": ["policyVersion", "enforcement", "targetVersion", "versions"],
+  "properties": {
+    "policyVersion": { "const": 1 },
+    "enforcement": { "enum": ["DRAFT", "ENFORCED"] },
+    "targetVersion": { "$ref": "#/$defs/version" },
+    "versions": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": { "$ref": "#/$defs/version" },
+      "additionalProperties": { "$ref": "#/$defs/support" }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "support": {
+      "type": "object",
+      "required": ["status", "allowPublish", "allowRead", "message"],
+      "properties": {
+        "status": { "enum": ["ACTIVE", "DEPRECATED", "FORBIDDEN", "RETIRED"] },
+        "allowPublish": { "type": "boolean" },
+        "allowRead": { "type": "boolean" },
+        "message": { "type": "string" },
+        "replacement": { "$ref": "#/$defs/version" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "const": "FORBIDDEN" } }, "required": ["status"] },
+          "then": { "properties": { "allowPublish": { "const": false } } }
+        },
+        {
+          "if": { "properties": { "status": { "const": "RETIRED" } }, "required": ["status"] },
+          "then": { "properties": { "allowPublish": { "const": false }, "allowRead": { "const": false } } }
+        }
+      ],
+      "additionalProperties": false
+    }
+  }
+}

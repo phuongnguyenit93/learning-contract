@@ -1,0 +1,13 @@
+{
+  "policyVersion": 1,
+  "enforcement": "DRAFT",
+  "targetVersion": "1.0.0",
+  "versions": {
+    "1.0.0": {
+      "status": "ACTIVE",
+      "allowPublish": true,
+      "allowRead": true,
+      "message": "Initial local contract draft; not yet published or enforced."
+    }
+  }
+}

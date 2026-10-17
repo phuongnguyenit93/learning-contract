@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Video Index",
+  "description": "module/{moduleId}/video/{language}/index.json. Video scripts are delivered separately and may have no published video URL.",
+  "type": "object",
+  "required": ["version", "moduleId", "language", "videoCount", "items"],
+  "properties": {
+    "version": { "const": 1 },
+    "moduleId": { "$ref": "./common.schema.json#/$defs/routeId" },
+    "language": { "$ref": "./common.schema.json#/$defs/language" },
+    "videoCount": { "$ref": "./common.schema.json#/$defs/nonnegativeInteger" },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["categoryId", "title", "sourcePath", "content", "url", "sectionCount", "sceneCount", "transitionCount"],
+        "properties": {
+          "categoryId": { "type": "string" },
+          "title": { "type": "string" },
+          "sourcePath": { "type": "string" },
+          "content": { "type": "string" },
+          "url": { "type": "string" },
+          "sectionCount": { "$ref": "./common.schema.json#/$defs/nonnegativeInteger" },
+          "sceneCount": { "$ref": "./common.schema.json#/$defs/nonnegativeInteger" },
+          "transitionCount": { "$ref": "./common.schema.json#/$defs/nonnegativeInteger" }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}
