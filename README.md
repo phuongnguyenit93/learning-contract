@@ -12,6 +12,21 @@ This is the **planned shared data contract** for `learning-platform` and indepen
 - Optional capabilities stay optional. A documentation-only module does not need API Docs, executable source code, Java package information or a quiz.
 - Java-only `master.json`, `properties.json`, source YAML skeleton comments, Gradle tasks and frontend React component state are **not** shared contracts.
 
+## Repository access and publishing ownership
+
+**Single writer, multiple readers:** `learning-platform` is the sole project authorized to propose and publish changes to this shared contract. `java-learning` and all future language/learning consumers must **fetch, pull, or download only**. They must not edit or push to `learning-contract`, and must not automatically open write-capable credentials for this repository in their CI workflows.
+
+The rule above describes **project ownership**, not a feature that `.gitmodules` or Git remote URLs enforce. GitHub grants push access to authenticated **users, apps, and keys** (not to a source checkout's parent repository). A developer using the same GitHub account with write access in both `learning-platform` and `java-learning` can technically push from either working directory. Git configuration, a `pre-push` hook, or `branch = main` does **not** create a security boundary.
+
+Recommended access model:
+
+1. Keep write permission to `learning-contract` restricted to the platform maintainer identity and, if automatic publishing is needed, a dedicated GitHub App granted **Contents: write** only for the contract repository.
+2. Consumer CI uses `permissions: contents: read` on its own repository and the public GitHub contract URL without a credential (or a dedicated **read-only** GitHub App/deploy key for private contracts). Do **not** supply it with the maintainer PAT or a write-enabled deploy key.
+3. Do not add consumer developers/bots as collaborators with write access to `learning-contract`. Optional GitHub branch rulesets can restrict updates and force pushes; a write restriction requires a deliberately designated bypass actor, not a repository folder name.
+4. For strict technical separation even when the projects share a computer, publish via a **dedicated platform GitHub App identity** and configure repository rules to allow only that publishing identity. The owner/admin still controls the repository's security settings. This has **not** been provisioned.
+
+For consumer checkouts, a normal HTTPS submodule URL is enough for pulling a public repository. Consumers should pin to a specific submodule commit or released contract version; they must not silently track the latest `main` in builds.
+
 ## Files
 
 | File | Payload / purpose |
