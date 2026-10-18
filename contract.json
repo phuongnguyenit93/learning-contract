@@ -11,6 +11,7 @@
     "roadmap": "schemas/roadmap.schema.json",
     "videoIndex": "schemas/video-index.schema.json",
     "videoScript": "schemas/video-script.schema.json",
+    "videoAuthoring": "schemas/video-authoring.schema.json",
     "quiz": "schemas/quiz.schema.json",
     "interview": "schemas/interview.schema.json",
     "reference": "schemas/reference.schema.json",
