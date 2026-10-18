@@ -1,31 +1,198 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Learning Roadmap",
-  "description": "Roadmap YAML (roadmap.yml), parsed into JSON-compatible objects for validation.",
+  "x-title": { "vi": "Cấu trúc Roadmap Module", "en": "Module Roadmap Structure" },
+  "description": "Learning roadmap milestones for one module and content language, validated after parsing roadmap.yml.",
+  "x-description": {
+    "vi": "Lộ trình học cấp module theo từng ngôn ngữ nội dung, kiểm tra sau khi parse roadmap.yml.",
+    "en": "Module-level learning roadmap for one content language, validated after parsing roadmap.yml."
+  },
+  "x-guidance": {
+    "principles": {
+      "ownership": {
+        "vi": "Mỗi language tự chịu trách nhiệm cho roadmap của chính nó. Không suy luận hoặc đồng bộ cấu trúc từ roadmap của language khác.",
+        "en": "Each language owns its own roadmap. Do not infer or synchronize its structure from another language."
+      },
+      "order": {
+        "vi": "Thứ tự item trong roadmap chính là thứ tự học mặc định. Chỉ dùng dependsOn khi cần biểu diễn dependency rõ hơn thứ tự tuyến tính.",
+        "en": "Item order is the default learning order. Use dependsOn only when dependency requires more than linear item order."
+      },
+      "flexibility": {
+        "vi": "Skeleton không nên ép mọi module có đúng bấy nhiêu node. Nó là framework suy nghĩ chứ không phải template cứng.",
+        "en": "The skeleton must not impose a fixed number of milestones; it is a thinking framework, not a rigid template."
+      }
+    },
+    "thinkingFramework": [
+      {
+        "id": "purpose",
+        "title": { "vi": "PURPOSE", "en": "PURPOSE" },
+        "questions": [
+          { "vi": "Topic/module này là gì?", "en": "What is this topic/module?" },
+          { "vi": "Vì sao nó tồn tại?", "en": "Why does it exist?" },
+          { "vi": "Không có nó thì learner gặp vấn đề gì?", "en": "What problem exists without it?" }
+        ]
+      },
+      {
+        "id": "foundation",
+        "title": { "vi": "FOUNDATION", "en": "FOUNDATION" },
+        "questions": [
+          { "vi": "Learner cần prerequisite hoặc mental model nào trước?", "en": "What prerequisite or mental model must the learner have first?" }
+        ]
+      },
+      {
+        "id": "core-model",
+        "title": { "vi": "CORE MODEL", "en": "CORE MODEL" },
+        "questions": [
+          { "vi": "Những abstraction hoặc building block lớn nào tạo nên chủ đề này?", "en": "What major abstractions or building blocks make up this topic?" }
+        ]
+      },
+      {
+        "id": "mechanics",
+        "title": { "vi": "MECHANICS", "en": "MECHANICS" },
+        "questions": [
+          { "vi": "Nó hoạt động như thế nào ở mức language/runtime/API phù hợp với module?", "en": "How does it work at the language/runtime/API level appropriate to this module?" }
+        ]
+      },
+      {
+        "id": "usage",
+        "title": { "vi": "USAGE", "en": "USAGE" },
+        "questions": [
+          { "vi": "Nó được dùng như thế nào trong code thực tế?", "en": "How is it used in real code?" }
+        ]
+      },
+      {
+        "id": "decision-trade-off",
+        "title": { "vi": "DECISION / TRADE-OFF", "en": "DECISION / TRADE-OFF" },
+        "questions": [
+          { "vi": "Khi nào nên chọn cơ chế này thay vì cơ chế khác?", "en": "When should this mechanism be chosen over another?" },
+          { "vi": "Khi nào không nên dùng?", "en": "When should it not be used?" }
+        ]
+      },
+      {
+        "id": "failure-pitfall",
+        "title": { "vi": "FAILURE / PITFALL", "en": "FAILURE / PITFALL" },
+        "questions": [
+          { "vi": "Những sai lầm, compile-time failure hoặc runtime failure nào đáng biết?", "en": "What mistakes, compile-time failures or runtime failures matter?" }
+        ]
+      },
+      {
+        "id": "integration",
+        "title": { "vi": "INTEGRATION", "en": "INTEGRATION" },
+        "questions": [
+          { "vi": "Chủ đề này kết nối với những concept/module lân cận nào?", "en": "How does this topic connect with adjacent concepts/modules?" }
+        ]
+      },
+      {
+        "id": "synthesis",
+        "title": { "vi": "SYNTHESIS", "en": "SYNTHESIS" },
+        "questions": [
+          { "vi": "Sau cùng learner phải giữ mental model end-to-end nào?", "en": "What end-to-end mental model should the learner retain?" }
+        ]
+      }
+    ]
+  },
   "type": "object",
   "required": ["roadmap"],
   "properties": {
     "roadmap": {
       "type": "array",
+      "default": [],
+      "description": "High-level roadmap milestones for the current content language. Milestone IDs must be unique.",
+      "x-description": {
+        "vi": "Danh sách milestone cấp cao của roadmap cho language hiện tại. ID milestone phải duy nhất.",
+        "en": "High-level learning milestones for the current language roadmap. Milestone IDs must be unique."
+      },
+      "x-uniqueBy": "id",
       "items": {
         "type": "object",
         "required": ["id", "title", "purpose"],
         "properties": {
-          "id": { "type": "string", "minLength": 1 },
-          "title": { "type": "string" },
-          "purpose": { "type": "string" },
-          "dependsOn": { "type": "array", "items": { "type": "string" } },
-          "objectives": { "type": "array", "items": { "type": "string" } },
-          "relatedKnowledge": { "type": "array", "items": { "type": "string" } },
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "default": "",
+            "description": "Stable, unique milestone ID within this language roadmap.",
+            "x-description": {
+              "vi": "ID ổn định và duy nhất của milestone trong roadmap language hiện tại.",
+              "en": "Stable and unique milestone identity within this language roadmap."
+            }
+          },
+          "title": {
+            "type": "string",
+            "default": "",
+            "description": "Milestone title displayed to the learner.",
+            "x-description": {
+              "vi": "Tên milestone hiển thị cho learner.",
+              "en": "Milestone title displayed to the learner."
+            }
+          },
+          "purpose": {
+            "type": "string",
+            "default": "",
+            "description": "What the learner should understand or achieve from this milestone.",
+            "x-description": {
+              "vi": "Milestone này tồn tại để learner hiểu hoặc đạt được điều gì.",
+              "en": "What the learner should understand or achieve from this milestone."
+            }
+          },
+          "dependsOn": {
+            "type": "array",
+            "default": [],
+            "items": { "type": "string" },
+            "description": "Prerequisite milestone IDs when list order alone does not express the dependency.",
+            "x-description": {
+              "vi": "Danh sách id milestone prerequisite khi dependency không thể hiện đủ chỉ bằng thứ tự item.",
+              "en": "Prerequisite milestone IDs when item order alone is not enough to express the dependency."
+            }
+          },
+          "objectives": {
+            "type": "array",
+            "default": [],
+            "items": { "type": "string" },
+            "description": "Milestone-level learning objectives, not a catalog of every small fact, API or syntax item.",
+            "x-description": {
+              "vi": "Các learning objective cấp milestone; không dùng để liệt kê mọi fact/API/syntax nhỏ.",
+              "en": "Milestone-level learning objectives; do not use this to list every small fact/API/syntax item."
+            }
+          },
+          "relatedKnowledge": {
+            "type": "array",
+            "default": [],
+            "items": { "type": "string" },
+            "description": "Knowledge category IDs in the current module. The platform links each item to its Knowledge category.",
+            "x-description": {
+              "vi": "Danh sách Knowledge category id trong chính module hiện tại hỗ trợ milestone. Portal hiển thị danh sách này ở phía đối diện milestone và click item sẽ điều hướng sang Knowledge category tương ứng.",
+              "en": "Knowledge category IDs in the current module that support this milestone. The portal displays these on the opposite side and links each to its Knowledge category."
+            }
+          },
           "relatedModules": {
             "type": "array",
+            "default": [],
+            "description": "Related module navigation cards at portal Level 2. These do not create child milestones or change learning order.",
+            "x-description": {
+              "vi": "Các module liên quan hiển thị ở Level 2 của Portal. Mỗi item dùng routeId bắt buộc và có thể có label/note localized; relation này chỉ để điều hướng, không tạo child milestone hoặc thay đổi learning order.",
+              "en": "Related modules displayed as Portal Level 2 cards. Each item requires routeId and may have a localized label/note; this is navigation only, not a child milestone or learning-order change."
+            },
             "items": {
               "type": "object",
               "required": ["routeId"],
               "properties": {
-                "routeId": { "$ref": "./common.schema.json#/$defs/routeId" },
-                "label": { "type": "string" },
-                "note": { "type": "string" }
+                "routeId": {
+                  "$ref": "./common.schema.json#/$defs/routeId",
+                  "default": "",
+                  "description": "Destination module's route ID.",
+                  "x-description": { "vi": "Route ID của module đích.", "en": "Destination module's route ID." }
+                },
+                "label": {
+                  "type": "string",
+                  "description": "Optional display label in the current language.",
+                  "x-description": { "vi": "Nhãn hiển thị tùy chọn theo language hiện tại.", "en": "Optional display label in the current language." }
+                },
+                "note": {
+                  "type": "string",
+                  "description": "Optional localized navigation note.",
+                  "x-description": { "vi": "Ghi chú điều hướng tùy chọn theo language hiện tại.", "en": "Optional localized navigation note." }
+                }
               },
               "additionalProperties": true
             }

@@ -51,6 +51,27 @@ All schema files use JSON Schema **Draft 2020-12**. External `$ref` paths are re
 
 The current JSON/YAML documents have their own wire-format values such as `version: 1` or `schemaVersion: 1`. **Do not confuse** those integers (or embedded Quiz/Interview YAML comment versions) with the shared semantic contract version `1.0.0`. A future release can add `contractVersion` to the archive manifest; it is **optional in this draft** so existing Java archives are not rejected.
 
+## Schema-driven YAML authoring (draft)
+
+The shared JSON Schemas are the **source of truth for the payload shape** of Quiz, Interview and Roadmap. A producer may parse a schema to generate a YAML skeleton and comments, then parse the completed YAML back into data to validate it with JSON Schema Draft 2020-12.
+
+- Standard `type`, `required`, `enum`, `pattern`, `minItems`, `maxItems`, `contains` and `minContains`/`maxContains` are **actual validation constraints**. In particular, Quiz must contain exactly four answers and each of the four answer IDs A/B/C/D exactly once, regardless of ordering.
+- Standard `description` is the canonical English explanation. `x-description: { "vi": "...", "en": "..." }`, `x-title` and `x-labels` are **custom annotations** for bilingual YAML comments, headings and labels; they do not influence JSON Schema validation.
+- Standard `default` provides **authoring hints only**. A validator does not automatically fill missing fields. Values such as `question: ""`, `correctAnswerId: ""` or `answers: []` are intentional *draft placeholders* and **must be replaced before publishing**. Their defaults are not necessarily themselves valid against final constraints. Producers should create these fields explicitly rather than silently fixing submissions.
+- `x-uniqueBy: "id"` is a **custom business rule marker** for producers (for example, unique Quiz question IDs and Roadmap milestone IDs). It is **not enforced by a standard JSON Schema validator**; producer-specific business validation must enforce it. Quiz answer-ID uniqueness is separately enforced with standard JSON Schema `contains` constraints.
+- `x-guidance` on Roadmap preserves bilingual content-generation principles and the thinking framework from the former Java `roadmap-schema.yml`. This metadata guides authoring but does not constrain payload structure.
+- Shared `readmeRelation` and `apiRelation` permit either two empty strings (no link) or two populated strings. The schemas can reject half-filled pairs, but checking whether the referenced Knowledge anchor or API method **actually exists** is business validation outside JSON Schema.
+- Schema authoring enhancements are **not yet consumed by Java generators**. The original Java YAML schema resources must remain in place until a tested migration switches generation and internal validation to these JSON Schemas.
+
+For an optional audit of the existing Java-generated Quiz, Interview and Roadmap payloads (requires Python, `jsonschema` and `PyYAML`):
+
+```bash
+python -m pip install jsonschema PyYAML
+python tests/validate_java_generated.py --data-dir ../../java-learning/build/learning-data/java
+```
+
+The audit does not modify either repository or validate additional document kinds. Once Gradle/CI validation is integrated, pin the Git submodule commit and run a compatible schema snapshot against the final generated output.
+
 ## Version policy
 
 `policy/compatibility.json` represents a **mutable policy**, separate from an immutable versioned schema archive. Its keys mean:

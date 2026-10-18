@@ -14,20 +14,72 @@
     },
     "readmeRelation": {
       "type": "object",
+      "description": "Optional Knowledge link. Use two empty strings if unlinked; otherwise supply both the relative README file and exact section anchor.",
+      "x-description": {
+        "vi": "Liên kết tùy chọn đến section Knowledge. Nếu không liên kết, để trống cả hai; nếu có, điền đủ đường dẫn README và anchor.",
+        "en": "Optional Knowledge link. Leave both fields empty when unlinked; otherwise fill in the README path and anchor."
+      },
+      "default": { "file": "", "anchor": "" },
       "required": ["file", "anchor"],
       "properties": {
-        "file": { "type": "string" },
-        "anchor": { "type": "string" }
+        "file": {
+          "type": "string",
+          "default": "",
+          "description": "README path relative to readme/{language}/menu, for example 1.Basic/Basic.md.",
+          "x-description": {
+            "vi": "Đường dẫn README tương đối bên dưới readme/{language}/menu, ví dụ 1.Basic/Basic.md.",
+            "en": "README path relative to readme/{language}/menu, for example 1.Basic/Basic.md."
+          }
+        },
+        "anchor": {
+          "type": "string",
+          "default": "",
+          "description": "Exact Knowledge section ID in the specified README file.",
+          "x-description": {
+            "vi": "ID section Knowledge chính xác trong README đã chỉ định.",
+            "en": "Exact Knowledge section ID in the specified README file."
+          }
+        }
       },
+      "anyOf": [
+        { "properties": { "file": { "const": "" }, "anchor": { "const": "" } } },
+        { "properties": { "file": { "pattern": "\\S" }, "anchor": { "pattern": "\\S" } } }
+      ],
       "additionalProperties": true
     },
     "apiRelation": {
       "type": "object",
+      "description": "Optional API link. Use two empty strings if unlinked; otherwise supply an existing controller and method signature.",
+      "x-description": {
+        "vi": "Liên kết tùy chọn tới API đang hoạt động trong Swagger metadata. Nếu không liên kết, để trống cả hai; nếu có, điền đủ controller và method signature.",
+        "en": "Optional link to an active API in Swagger metadata. Leave both fields empty when unlinked; otherwise fill in controller and method signature."
+      },
+      "default": { "controller": "", "methodSignature": "" },
       "required": ["controller", "methodSignature"],
       "properties": {
-        "controller": { "type": "string" },
-        "methodSignature": { "type": "string" }
+        "controller": {
+          "type": "string",
+          "default": "",
+          "description": "Exact controller name, for example BasicThreadController.",
+          "x-description": {
+            "vi": "Tên controller chính xác, ví dụ BasicThreadController.",
+            "en": "Exact controller name, for example BasicThreadController."
+          }
+        },
+        "methodSignature": {
+          "type": "string",
+          "default": "",
+          "description": "Exact method signature in api-descriptions.yml, for example startVsRun().",
+          "x-description": {
+            "vi": "Method signature chính xác trong api-descriptions.yml, ví dụ startVsRun().",
+            "en": "Exact method signature in api-descriptions.yml, for example startVsRun()."
+          }
+        }
       },
+      "anyOf": [
+        { "properties": { "controller": { "const": "" }, "methodSignature": { "const": "" } } },
+        { "properties": { "controller": { "pattern": "\\S" }, "methodSignature": { "pattern": "\\S" } } }
+      ],
       "additionalProperties": true
     }
   }
