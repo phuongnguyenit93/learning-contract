@@ -188,6 +188,17 @@ class ContractSchemaTests(unittest.TestCase):
         del doc["questions"][0]["reviewed"]
         self.assert_invalid("quiz", doc)
 
+    def test_knowledge_importance_is_optional_boolean_default_false(self):
+        from jsonschema import Draft202012Validator
+        section = load_schema("knowledge.schema.json")["$defs"]["section"]
+        flag = section["properties"]["isImportant"]
+        self.assertEqual("boolean", flag["type"])
+        self.assertIs(flag["default"], False)
+        self.assertNotIn("isImportant", section["required"])
+        self.assertFalse(list(Draft202012Validator(flag).iter_errors(True)))
+        self.assertFalse(list(Draft202012Validator(flag).iter_errors(False)))
+        self.assertTrue(list(Draft202012Validator(flag).iter_errors("true")))
+
 
 if __name__ == "__main__":
     unittest.main()
