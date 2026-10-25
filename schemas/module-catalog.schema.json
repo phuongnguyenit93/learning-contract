@@ -22,6 +22,7 @@
         "sourceFingerprint": { "type": "string" },
         "serviceName": { "type": "string" },
         "moduleType": { "type": "string" },
+        "currentStep": { "type": "string", "pattern": "^(0|[1-9][0-9]*[A-Z]?|FINAL)$", "description": "Last completed generation step; 0 means not started." },
         "description": { "type": "string" },
         "moduleDepend": { "type": "boolean" },
         "javaBasePackage": { "type": "string", "description": "Optional Java-specific extension; not required for other producers." },

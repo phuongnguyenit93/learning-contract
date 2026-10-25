@@ -8,6 +8,7 @@ import json
 import unittest
 
 import yaml
+from jsonschema import Draft202012Validator
 
 from validate_java_generated import SCHEMAS, validators
 
@@ -73,6 +74,15 @@ class ContractSchemaTests(unittest.TestCase):
 
     def assert_invalid(self, kind, doc):
         self.assertTrue(list(self.checks[kind].iter_errors(doc)))
+
+    def test_module_catalog_current_step_is_optional_string_and_not_numeric(self):
+        node = load_schema("module-catalog.schema.json")["$defs"]["node"]
+        self.assertNotIn("currentStep", node.get("required", []))
+        validator = Draft202012Validator(node["properties"]["currentStep"])
+        for step in ("0", "5", "12A", "15", "FINAL"):
+            self.assertTrue(validator.is_valid(step))
+        for invalid in (5, -1, "", "05", "step 5", "12a", "FINISHED"):
+            self.assertFalse(validator.is_valid(invalid))
 
     def test_quiz_valid_four_answers_in_any_order(self):
         self.assert_valid("quiz", quiz_example())
