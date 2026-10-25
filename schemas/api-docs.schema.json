@@ -3,42 +3,117 @@
   "title": "API Docs Projection",
   "description": "Module API Docs JSON projection. This is optional; concept-only modules need not publish it.",
   "type": "object",
-  "required": ["operationCount", "controllers"],
+  "required": [
+    "operationCount",
+    "controllers"
+  ],
   "properties": {
-    "operationCount": { "$ref": "./common.schema.json#/$defs/nonnegativeInteger" },
+    "operationCount": {
+      "$ref": "./common.schema.json#/$defs/nonnegativeInteger"
+    },
     "controllers": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["name", "title", "description", "descriptionHtml", "readmeRelated", "chapterOrder", "operations"],
+        "required": [
+          "name",
+          "title",
+          "description",
+          "descriptionHtml",
+          "readmeRelated",
+          "chapterOrder",
+          "operations"
+        ],
         "properties": {
-          "name": { "type": "string" },
-          "title": { "type": "string" },
-          "description": { "type": "string" },
-          "descriptionHtml": { "type": "string" },
-          "readmeRelated": { "$ref": "#/$defs/optionalReadmeRelation" },
-          "chapterOrder": { "type": ["integer", "null"] },
+          "name": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "descriptionHtml": {
+            "type": "string"
+          },
+          "readmeRelated": {
+            "$ref": "#/$defs/optionalReadmeRelation"
+          },
+          "chapterOrder": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
           "operations": {
             "type": "array",
             "items": {
               "type": "object",
-              "required": ["id", "controllerName", "methodSignature", "methodName", "httpMethod", "path", "summary", "description", "executionHtml", "consumes", "produces", "params", "readmeRelated", "aiGenerated", "reviewed"],
+              "required": [
+                "id",
+                "controllerName",
+                "methodSignature",
+                "methodName",
+                "httpMethod",
+                "path",
+                "summary",
+                "description",
+                "executionHtml",
+                "consumes",
+                "produces",
+                "params",
+                "readmeRelated"
+              ],
               "properties": {
-                "id": { "type": "string" },
-                "controllerName": { "type": "string" },
-                "methodSignature": { "type": "string" },
-                "methodName": { "type": "string" },
-                "httpMethod": { "type": "string" },
-                "path": { "type": "string" },
-                "summary": { "type": "string" },
-                "description": { "type": "string" },
-                "executionHtml": { "type": "string" },
-                "consumes": { "type": "array", "items": { "type": "string" } },
-                "produces": { "type": "array", "items": { "type": "string" } },
-                "params": { "type": "array", "items": { "$ref": "#/$defs/param" } },
-                "readmeRelated": { "$ref": "#/$defs/optionalReadmeRelation" },
-                "aiGenerated": { "type": "boolean" },
-                "reviewed": { "type": "boolean" }
+                "id": {
+                  "type": "string"
+                },
+                "controllerName": {
+                  "type": "string"
+                },
+                "methodSignature": {
+                  "type": "string"
+                },
+                "methodName": {
+                  "type": "string"
+                },
+                "httpMethod": {
+                  "type": "string"
+                },
+                "path": {
+                  "type": "string"
+                },
+                "summary": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "executionHtml": {
+                  "type": "string"
+                },
+                "consumes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "produces": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "params": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/param"
+                  }
+                },
+                "readmeRelated": {
+                  "$ref": "#/$defs/optionalReadmeRelation"
+                }
               },
               "additionalProperties": true
             }
@@ -53,18 +128,32 @@
     "optionalReadmeRelation": {
       "type": "object",
       "properties": {
-        "file": { "type": "string" },
-        "anchor": { "type": "string" }
+        "file": {
+          "type": "string"
+        },
+        "anchor": {
+          "type": "string"
+        }
       },
       "additionalProperties": true
     },
     "param": {
       "type": "object",
-      "required": ["name", "summary", "description"],
+      "required": [
+        "name",
+        "summary",
+        "description"
+      ],
       "properties": {
-        "name": { "type": "string" },
-        "summary": { "type": "string" },
-        "description": { "type": "string" }
+        "name": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
       },
       "additionalProperties": true
     }

@@ -18,7 +18,7 @@ def load_schema(name):
 
 def relation_defaults():
     return {
-        "readmeRelated": {"file": "", "anchor": ""},
+        "readmeRelated": {"anchor": ""},
         "apiRelated": {"controller": "", "methodSignature": ""},
     }
 
@@ -28,8 +28,6 @@ def quiz_example():
         "questions": [{
             "id": "quiz-1",
             "question": "What is a JVM?",
-            "aiGenerated": True,
-            "reviewed": False,
             **relation_defaults(),
             "answers": [
                 {"id": key, "answer": f"Answer {key}", "explanation": "Explanation"}
@@ -45,8 +43,6 @@ def interview_example():
         "questions": [{
             "question": "Explain the JVM.",
             "answer": "It executes Java bytecode.",
-            "aiGenerated": True,
-            "reviewed": False,
             **relation_defaults(),
         }]
     }
@@ -112,18 +108,18 @@ class ContractSchemaTests(unittest.TestCase):
             doc["questions"][0][field] = " "
             self.assert_invalid("interview", doc)
         doc = interview_example()
-        del doc["questions"][0]["reviewed"]
+        doc["questions"][0].pop("readmeRelated")
         self.assert_invalid("interview", doc)
 
     def test_relations_require_both_fields_or_neither(self):
         for kind, example in (("quiz", quiz_example), ("interview", interview_example)):
             doc = example()
-            doc["questions"][0]["readmeRelated"] = {"file": "1.Basic/knowledge/Basic.md", "anchor": "basics"}
+            doc["questions"][0]["readmeRelated"] = {"anchor": "basics"}
             doc["questions"][0]["apiRelated"] = {
                 "controller": "DemoController", "methodSignature": "demo()"
             }
             self.assert_valid(kind, doc)
-            doc["questions"][0]["readmeRelated"]["anchor"] = ""
+            doc["questions"][0]["readmeRelated"]["anchor"] = 123
             self.assert_invalid(kind, doc)
             doc = example()
             doc["questions"][0]["apiRelated"]["methodSignature"] = "  "
@@ -164,8 +160,8 @@ class ContractSchemaTests(unittest.TestCase):
         item = quiz["properties"]["questions"]["items"]["properties"]
         self.assertEqual("", item["id"]["default"])
         self.assertEqual("", item["question"]["default"])
-        self.assertTrue(item["aiGenerated"]["default"])
-        self.assertFalse(item["reviewed"]["default"])
+        self.assertNotIn("aiGenerated", item)
+        self.assertNotIn("reviewed", item)
         self.assertEqual("", item["correctAnswerId"]["default"])
         self.assertEqual([], item["answers"]["default"])
         common = load_schema("common.schema.json")["$defs"]
@@ -185,7 +181,7 @@ class ContractSchemaTests(unittest.TestCase):
 
     def test_defaults_are_annotations_not_auto_population(self):
         doc = quiz_example()
-        del doc["questions"][0]["reviewed"]
+        doc["questions"][0].pop("readmeRelated")
         self.assert_invalid("quiz", doc)
 
     def test_knowledge_importance_is_optional_boolean_default_false(self):

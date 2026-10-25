@@ -3,50 +3,131 @@
   "title": "Knowledge Index",
   "description": "module/{moduleId}/knowledge/{language}/index.json. Section.content is a URL to Markdown, not the Markdown body.",
   "type": "object",
-  "required": ["version", "moduleId", "language", "categoryCount", "sectionCount", "tree"],
+  "required": [
+    "version",
+    "moduleId",
+    "language",
+    "categoryCount",
+    "sectionCount",
+    "tree"
+  ],
   "properties": {
-    "version": { "const": 1 },
-    "moduleId": { "$ref": "./common.schema.json#/$defs/routeId" },
-    "language": { "$ref": "./common.schema.json#/$defs/language" },
-    "categoryCount": { "$ref": "./common.schema.json#/$defs/nonnegativeInteger" },
-    "sectionCount": { "$ref": "./common.schema.json#/$defs/nonnegativeInteger" },
-    "tree": { "type": "array", "items": { "$ref": "#/$defs/node" } }
+    "version": {
+      "const": 1
+    },
+    "moduleId": {
+      "$ref": "./common.schema.json#/$defs/routeId"
+    },
+    "language": {
+      "$ref": "./common.schema.json#/$defs/language"
+    },
+    "categoryCount": {
+      "$ref": "./common.schema.json#/$defs/nonnegativeInteger"
+    },
+    "sectionCount": {
+      "$ref": "./common.schema.json#/$defs/nonnegativeInteger"
+    },
+    "tree": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/node"
+      }
+    }
   },
   "additionalProperties": true,
   "$defs": {
-    "node": { "oneOf": [ { "$ref": "#/$defs/folder" }, { "$ref": "#/$defs/category" } ] },
+    "node": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/folder"
+        },
+        {
+          "$ref": "#/$defs/category"
+        }
+      ]
+    },
     "folder": {
       "type": "object",
-      "required": ["kind", "id", "title", "children"],
+      "required": [
+        "kind",
+        "id",
+        "title",
+        "children"
+      ],
       "properties": {
-        "kind": { "const": "FOLDER" },
-        "id": { "type": "string" },
-        "title": { "type": "string" },
-        "children": { "type": "array", "items": { "$ref": "#/$defs/node" } }
+        "kind": {
+          "const": "FOLDER"
+        },
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/node"
+          }
+        }
       },
       "additionalProperties": true
     },
     "category": {
       "type": "object",
-      "required": ["kind", "id", "title", "sourcePath", "sections"],
+      "required": [
+        "kind",
+        "id",
+        "title",
+        "sourcePath",
+        "sections"
+      ],
       "properties": {
-        "kind": { "const": "CATEGORY" },
-        "id": { "type": "string" },
-        "title": { "type": "string" },
-        "sourcePath": { "type": "string" },
-        "intro": { "type": "string" },
-        "sections": { "type": "array", "items": { "$ref": "#/$defs/section" } }
+        "kind": {
+          "const": "CATEGORY"
+        },
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "sourcePath": {
+          "type": "string"
+        },
+        "intro": {
+          "type": "string"
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/section"
+          }
+        }
       },
       "additionalProperties": true
     },
     "section": {
       "type": "object",
-      "required": ["id", "title", "content", "difficulty", "aiGenerated", "reviewed"],
+      "required": [
+        "id",
+        "title",
+        "content",
+        "difficulty"
+      ],
       "properties": {
-        "id": { "type": "string" },
-        "title": { "type": "string" },
-        "content": { "type": "string" },
-        "difficulty": { "$ref": "./common.schema.json#/$defs/difficulty" },
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "difficulty": {
+          "$ref": "./common.schema.json#/$defs/difficulty"
+        },
         "isImportant": {
           "type": "boolean",
           "default": false,
@@ -55,9 +136,7 @@
             "vi": "Đánh dấu kiến thức cốt lõi cần học; mặc định false và không phụ thuộc Difficulty.",
             "en": "Marks essential knowledge to learn; defaults to false independently of Difficulty."
           }
-        },
-        "aiGenerated": { "type": "boolean" },
-        "reviewed": { "type": "boolean" }
+        }
       },
       "additionalProperties": true
     }
