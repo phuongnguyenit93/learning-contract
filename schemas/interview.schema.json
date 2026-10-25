@@ -6,7 +6,7 @@
     "vi": { "type": "kiểu", "required": "bắt buộc", "item": "mỗi phần tử", "default": "mặc định" },
     "en": { "type": "type", "required": "required", "item": "each item", "default": "default" }
   },
-  "description": "Interview questions for one module and content language, validated after YAML parsing.",
+  "description": "Interview questions for one chapter and language; Knowledge references are chapter-local anchors.",
   "x-description": {
     "vi": "Câu hỏi phỏng vấn của một module theo ngôn ngữ nội dung. Parse question.yml thành object trước khi kiểm tra JSON Schema.",
     "en": "Interview questions for one module and content language. Parse question.yml into an object before JSON Schema validation."
@@ -65,8 +65,8 @@
             }
           },
           "readmeRelated": {
-            "$ref": "./common.schema.json#/$defs/readmeRelation",
-            "default": { "file": "", "anchor": "" }
+            "$ref": "./common.schema.json#/$defs/chapterReadmeRelation",
+            "default": { "anchor": "" }
           },
           "apiRelated": {
             "$ref": "./common.schema.json#/$defs/apiRelation",

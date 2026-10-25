@@ -12,6 +12,20 @@
       "propertyNames": { "$ref": "#/$defs/language" },
       "additionalProperties": { "type": "string", "minLength": 1 }
     },
+    "chapterReadmeRelation": {
+      "type": "object",
+      "description": "Knowledge link scoped to the same Menu Level 1 chapter. The chapter identifies the file; only the anchor is authored.",
+      "x-description": {
+        "vi": "Liên kết Knowledge trong cùng chương: chỉ lưu anchor, đường dẫn file được Portal tự giải quyết.",
+        "en": "Link to Knowledge in the same chapter using only the anchor; Portal resolves the file."
+      },
+      "default": { "anchor": "" },
+      "required": ["anchor"],
+      "properties": {
+        "anchor": { "type": "string", "default": "", "description": "Exact Knowledge section anchor in this chapter." }
+      },
+      "additionalProperties": true
+    },
     "readmeRelation": {
       "type": "object",
       "description": "Optional Knowledge link. Use two empty strings if unlinked; otherwise supply both the relative README file and exact section anchor.",

@@ -6,7 +6,7 @@
     "vi": { "type": "kiểu", "required": "bắt buộc", "size": "số phần tử", "values": "giá trị hợp lệ", "uniqueBy": "duy nhất theo", "item": "mỗi phần tử", "default": "mặc định" },
     "en": { "type": "type", "required": "required", "size": "item count", "values": "allowed values", "uniqueBy": "unique by", "item": "each item", "default": "default" }
   },
-  "description": "Quiz questions for one module and content language, validated after YAML parsing. YAML source comment version is independent of the shared contract version.",
+  "description": "Quiz questions for one chapter and language, with chapter-local Knowledge anchors. YAML source comment version is independent of the shared contract version.",
   "x-description": {
     "vi": "Danh sách câu hỏi Quiz của một module theo ngôn ngữ nội dung. Parse question.yml thành object trước khi kiểm tra JSON Schema.",
     "en": "Quiz questions for one module and content language. Parse question.yml into an object before JSON Schema validation."
@@ -66,8 +66,8 @@
             }
           },
           "readmeRelated": {
-            "$ref": "./common.schema.json#/$defs/readmeRelation",
-            "default": { "file": "", "anchor": "" }
+            "$ref": "./common.schema.json#/$defs/chapterReadmeRelation",
+            "default": { "anchor": "" }
           },
           "apiRelated": {
             "$ref": "./common.schema.json#/$defs/apiRelation",
