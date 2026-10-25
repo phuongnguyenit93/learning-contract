@@ -25,10 +25,10 @@
         "file": {
           "type": "string",
           "default": "",
-          "description": "README path relative to readme/{language}/menu, for example 1.Basic/Basic.md.",
+          "description": "Knowledge README path relative to readme/{language}/menu, for example 1.Basic/knowledge/Basic.md.",
           "x-description": {
-            "vi": "Đường dẫn README tương đối bên dưới readme/{language}/menu, ví dụ 1.Basic/Basic.md.",
-            "en": "README path relative to readme/{language}/menu, for example 1.Basic/Basic.md."
+            "vi": "Đường dẫn Knowledge README tương đối bên dưới readme/{language}/menu, ví dụ 1.Basic/knowledge/Basic.md.",
+            "en": "Knowledge README path relative to readme/{language}/menu, for example 1.Basic/knowledge/Basic.md."
           }
         },
         "anchor": {

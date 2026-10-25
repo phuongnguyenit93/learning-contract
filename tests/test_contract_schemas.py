@@ -118,7 +118,7 @@ class ContractSchemaTests(unittest.TestCase):
     def test_relations_require_both_fields_or_neither(self):
         for kind, example in (("quiz", quiz_example), ("interview", interview_example)):
             doc = example()
-            doc["questions"][0]["readmeRelated"] = {"file": "1.Basic/Basic.md", "anchor": "basics"}
+            doc["questions"][0]["readmeRelated"] = {"file": "1.Basic/knowledge/Basic.md", "anchor": "basics"}
             doc["questions"][0]["apiRelated"] = {
                 "controller": "DemoController", "methodSignature": "demo()"
             }
