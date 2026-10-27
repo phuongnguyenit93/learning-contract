@@ -14,6 +14,7 @@
     "videoAuthoring": "schemas/video-authoring.schema.json",
     "quiz": "schemas/quiz.schema.json",
     "interview": "schemas/interview.schema.json",
+    "summaryQuestions": "schemas/summary-questions.schema.json",
     "reference": "schemas/reference.schema.json",
     "apiDocs": "schemas/api-docs.schema.json"
   },

@@ -41,6 +41,7 @@ For consumer checkouts, a normal HTTPS submodule URL is enough for pulling a pub
 | `schemas/video-script.schema.json` | Video scenes and transitions |
 | `schemas/quiz.schema.json` | Quiz YAML, validated *after parsing* |
 | `schemas/interview.schema.json` | Interview YAML, validated *after parsing* |
+| `schemas/summary-questions.schema.json` | Independent chapter Summary Questions YAML (`questions[]`, question/answer only) |
 | `schemas/reference.schema.json` | References YAML, validated *after parsing* |
 | `schemas/api-docs.schema.json` | Optional API Docs JSON |
 | `schemas/manifest.schema.json` | Dataset ZIP `manifest.json` |

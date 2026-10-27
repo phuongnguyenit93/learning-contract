@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Chapter Summary Questions",
+  "description": "Self-assessment questions for one chapter and language.",
+  "type": "object",
+  "required": ["questions"],
+  "additionalProperties": false,
+  "properties": {
+    "questions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["question", "answer"],
+        "additionalProperties": false,
+        "properties": {
+          "question": {"type": "string", "pattern": "\\S"},
+          "answer": {"type": "string", "pattern": "\\S"}
+        }
+      }
+    }
+  }
+}
