@@ -15,6 +15,9 @@
     "quiz": "schemas/quiz.schema.json",
     "interview": "schemas/interview.schema.json",
     "summaryQuestions": "schemas/summary-questions.schema.json",
+    "practiceDraft": "schemas/practice-draft.schema.json",
+    "practiceSheet": "schemas/practice-sheet.schema.json",
+    "practiceScenario": "schemas/practice-scenario.schema.json",
     "reference": "schemas/reference.schema.json",
     "apiDocs": "schemas/api-docs.schema.json"
   },

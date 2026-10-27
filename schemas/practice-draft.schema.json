@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Practice chapter phase-1 skeleton",
+  "type": "object",
+  "required": [
+    "scenarios"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "scenarios": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "type",
+          "title",
+          "sourceKind",
+          "exercise"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^scenario-[0-9]{2,}$"
+          },
+          "type": {
+            "enum": [
+              "BUSINESS",
+              "ENGINEERING"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "pattern": "\\S"
+          },
+          "sourceKind": {
+            "const": "REALISTIC_SIMULATION"
+          },
+          "exercise": {
+            "type": "object",
+            "required": [
+              "type"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "enum": [
+                  "CODING",
+                  "DEBUGGING",
+                  "WORKFLOW_DESIGN",
+                  "ARCHITECTURE_DESIGN",
+                  "ANALYSIS",
+                  "DECISION_MAKING",
+                  "TROUBLESHOOTING",
+                  "PRACTICAL_LAB",
+                  "CONCEPTUAL_REASONING"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

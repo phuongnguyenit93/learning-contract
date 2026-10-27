@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Complete single practice scenario",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "type",
+    "title",
+    "sourceKind",
+    "context",
+    "problem",
+    "analysis",
+    "exercise"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^scenario-[0-9]{2,}$"
+    },
+    "type": {
+      "enum": [
+        "BUSINESS",
+        "ENGINEERING"
+      ]
+    },
+    "title": {
+      "type": "string",
+      "pattern": "\\S"
+    },
+    "sourceKind": {
+      "const": "REALISTIC_SIMULATION"
+    },
+    "exercise": {
+      "type": "object",
+      "required": [
+        "type",
+        "requirements",
+        "deliverables",
+        "acceptanceCriteria",
+        "hints",
+        "referenceSolution"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": [
+            "CODING",
+            "DEBUGGING",
+            "WORKFLOW_DESIGN",
+            "ARCHITECTURE_DESIGN",
+            "ANALYSIS",
+            "DECISION_MAKING",
+            "TROUBLESHOOTING",
+            "PRACTICAL_LAB",
+            "CONCEPTUAL_REASONING"
+          ]
+        },
+        "requirements": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "\\S"
+          }
+        },
+        "deliverables": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "\\S"
+          }
+        },
+        "acceptanceCriteria": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "\\S"
+          }
+        },
+        "hints": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "\\S"
+          }
+        },
+        "referenceSolution": {
+          "type": "string",
+          "pattern": "\\S"
+        }
+      }
+    },
+    "context": {
+      "type": "string",
+      "pattern": "\\S"
+    },
+    "problem": {
+      "type": "string",
+      "pattern": "\\S"
+    },
+    "analysis": {
+      "type": "object",
+      "required": [
+        "possibleCauses",
+        "application",
+        "tradeoffs"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "possibleCauses": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "application": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "tradeoffs": {
+          "type": "string",
+          "pattern": "\\S"
+        }
+      }
+    }
+  }
+}
