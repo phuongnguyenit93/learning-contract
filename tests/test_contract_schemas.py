@@ -75,6 +75,18 @@ class ContractSchemaTests(unittest.TestCase):
     def assert_invalid(self, kind, doc):
         self.assertTrue(list(self.checks[kind].iter_errors(doc)))
 
+    def test_knowledge_sections_allow_only_published_fields(self):
+        schema = load_schema("knowledge.schema.json")["$defs"]["section"]
+        schema["properties"]["difficulty"] = load_schema("common.schema.json")["$defs"]["difficulty"]
+        validator = Draft202012Validator(schema)
+        section = {
+            "id": "lesson-1", "title": "Lesson",
+            "content": "/lesson.md", "difficulty": "BASIC",
+        }
+        self.assertTrue(validator.is_valid(section))
+        section["obsoleteMetadata"] = True
+        self.assertFalse(validator.is_valid(section))
+
     def test_module_catalog_current_step_is_optional_string_and_not_numeric(self):
         node = load_schema("module-catalog.schema.json")["$defs"]["node"]
         self.assertNotIn("currentStep", node.get("required", []))
@@ -193,18 +205,6 @@ class ContractSchemaTests(unittest.TestCase):
         doc = quiz_example()
         doc["questions"][0].pop("readmeRelated")
         self.assert_invalid("quiz", doc)
-
-    def test_knowledge_importance_is_optional_boolean_default_false(self):
-        from jsonschema import Draft202012Validator
-        section = load_schema("knowledge.schema.json")["$defs"]["section"]
-        flag = section["properties"]["isImportant"]
-        self.assertEqual("boolean", flag["type"])
-        self.assertIs(flag["default"], False)
-        self.assertNotIn("isImportant", section["required"])
-        self.assertFalse(list(Draft202012Validator(flag).iter_errors(True)))
-        self.assertFalse(list(Draft202012Validator(flag).iter_errors(False)))
-        self.assertTrue(list(Draft202012Validator(flag).iter_errors("true")))
-
 
 if __name__ == "__main__":
     unittest.main()

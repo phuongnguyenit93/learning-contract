@@ -127,18 +127,9 @@
         },
         "difficulty": {
           "$ref": "./common.schema.json#/$defs/difficulty"
-        },
-        "isImportant": {
-          "type": "boolean",
-          "default": false,
-          "description": "Whether this section is essential learning material. Missing values in older indexes mean false.",
-          "x-description": {
-            "vi": "Đánh dấu kiến thức cốt lõi cần học; mặc định false và không phụ thuộc Difficulty.",
-            "en": "Marks essential knowledge to learn; defaults to false independently of Difficulty."
-          }
         }
       },
-      "additionalProperties": true
+      "additionalProperties": false
     }
   }
 }
