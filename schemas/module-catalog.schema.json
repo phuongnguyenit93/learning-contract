@@ -33,7 +33,13 @@
         "quiz": { "$ref": "./common.schema.json#/$defs/localizedAssetPaths" },
         "interview": { "$ref": "./common.schema.json#/$defs/localizedAssetPaths" },
         "api": { "$ref": "./common.schema.json#/$defs/localizedAssetPaths" },
-        "reference": { "type": "string" },
+        "reference": {
+          "description": "Language-specific curated Reference assets; string is accepted only for previously published releases.",
+          "oneOf": [
+            { "$ref": "./common.schema.json#/$defs/localizedAssetPaths" },
+            { "type": "string" }
+          ]
+        },
         "children": { "type": "array", "items": { "$ref": "#/$defs/node" } }
       },
       "if": { "properties": { "kind": { "const": "MODULE" } }, "required": ["kind"] },
